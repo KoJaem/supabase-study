@@ -1,5 +1,5 @@
-import { Metadata } from "next";
-import TestComponent from "./components/TestComponent";
+import { Metadata } from "next/dist/lib/metadata/types/metadata-interface";
+import TestSupabaseAuth from "./components/TestSupabaseAuth";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <TestComponent />
+      <TestSupabaseAuth />
     </main>
   );
 }
