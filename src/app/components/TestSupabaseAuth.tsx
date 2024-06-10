@@ -16,6 +16,10 @@ export default function TestSupabaseAuth() {
     });
   };
 
+  const signOutWithGithub = async () => {
+    await client.auth.signOut();
+  };
+
   const testToken = async () => {
     const authInfo = await client.auth.getSession();
     console.log(authInfo.data.session);
@@ -27,6 +31,7 @@ export default function TestSupabaseAuth() {
     <div className="flex flex-col gap-[20px] items-center justify-center">
       <h1>Supabase Auth</h1>
       <button onClick={signInWithGithub}>login</button>
+      <button onClick={signOutWithGithub}>logout</button>
     </div>
   );
 }
