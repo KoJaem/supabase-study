@@ -45,6 +45,14 @@ export default function TestSupabaseAuth() {
     await getPage();
   };
 
+  const updatePage = async (id: number) => {
+    await client
+      .from("page")
+      .update({ title: prompt("title?"), body: prompt("body?") })
+      .eq("id", id);
+    await getPage();
+  };
+
   const deletePage = async (id: number) => {
     await client.from("page").delete().eq("id", id);
     await getPage();
@@ -59,6 +67,12 @@ export default function TestSupabaseAuth() {
       {data?.map(data => (
         <div className="flex items-center gap-[4px]" key={data.id}>
           <p>{data.title}</p>
+          <button
+            className="p-[4px] bg-blue-200"
+            onClick={() => updatePage(data.id)}
+          >
+            Update {data.title}
+          </button>
           <button
             className="p-[4px] bg-red-200"
             onClick={() => deletePage(data.id)}
