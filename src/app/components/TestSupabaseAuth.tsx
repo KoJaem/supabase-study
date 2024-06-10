@@ -29,26 +29,28 @@ export default function TestSupabaseAuth() {
     await client.auth.signOut();
   };
 
-  const testToken = async () => {
-    const authInfo = await client.auth.getSession();
-    console.log(authInfo.data.session);
-  };
-
-  testToken();
-
   const getPage = async () => {
     const { data } = await client.from("page").select("*");
     if (data) setData(data);
   };
+
   useEffect(() => {
     getPage();
   }, []);
+
+  const createPage = async () => {
+    const {} = await client
+      .from("page")
+      .insert([{ title: prompt("title?"), body: prompt("body?") }]);
+    await getPage();
+  };
 
   return (
     <div className="flex flex-col gap-[20px] items-center justify-center">
       <h1>Supabase Auth</h1>
       <button onClick={signInWithGithub}>login</button>
       <button onClick={signOutWithGithub}>logout</button>
+      <button onClick={createPage}>Create</button>
       {data?.map(data => (
         <p key={data.id}>{data.title}</p>
       ))}
