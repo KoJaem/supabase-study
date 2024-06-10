@@ -39,9 +39,14 @@ export default function TestSupabaseAuth() {
   }, []);
 
   const createPage = async () => {
-    const {} = await client
+    await client
       .from("page")
       .insert([{ title: prompt("title?"), body: prompt("body?") }]);
+    await getPage();
+  };
+
+  const deletePage = async (id: number) => {
+    await client.from("page").delete().eq("id", id);
     await getPage();
   };
 
@@ -52,7 +57,15 @@ export default function TestSupabaseAuth() {
       <button onClick={signOutWithGithub}>logout</button>
       <button onClick={createPage}>Create</button>
       {data?.map(data => (
-        <p key={data.id}>{data.title}</p>
+        <div className="flex items-center gap-[4px]" key={data.id}>
+          <p>{data.title}</p>
+          <button
+            className="p-[4px] bg-red-200"
+            onClick={() => deletePage(data.id)}
+          >
+            Delete {data.title}
+          </button>
+        </div>
       ))}
     </div>
   );
