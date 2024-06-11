@@ -1,3 +1,4 @@
+// tanstack query template
 import { useQuery } from "@tanstack/react-query";
 
 async function fetchTemplate() {

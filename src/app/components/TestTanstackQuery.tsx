@@ -1,11 +1,10 @@
 "use client";
 
-import { useTemplate } from "../hooks/useTemplate";
+import { useTemplate } from "../hooks/react-query/useTemplate";
 
 export default function TestTanstackQuery() {
   const { data, isFetching, isFetched, isLoading, refetch } = useTemplate();
 
-  console.log("data", data);
   return (
     <div>
       <h1>Welcome to Tanstack</h1>
