@@ -1,6 +1,8 @@
 "use client";
 
 import useCountryQuery from "@/app/hooks/react-query/useCountryQuery";
+import useSupabase from "@/app/hooks/useSupabase";
+import { useQuery } from "@tanstack/react-query";
 
 interface Params {
   params: {
@@ -9,7 +11,13 @@ interface Params {
 }
 
 export default function CountryPage({ params: { id } }: Params) {
-  const { data: country, isLoading, isError } = useCountryQuery(id);
+  const supabase = useSupabase();
+
+  const {
+    data: country,
+    isLoading,
+    isError,
+  } = useQuery(useCountryQuery({ id, client: supabase }));
 
   if (isLoading) {
     return <div>Loading...</div>;

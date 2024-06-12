@@ -1,16 +1,18 @@
 import { getCountryById } from "@/queries/getCountryById";
-import { useQuery } from "@tanstack/react-query";
-import useSupabase from "../useSupabase";
+import { TypedSupabaseClient } from "@/utils/supabase";
 
-function useCountryQuery(countryId: number) {
-  const client = useSupabase();
-  const queryKey = ["organization", countryId];
+interface Params {
+  id: number;
+  client: TypedSupabaseClient;
+}
+function useCountryQuery({ id, client }: Params) {
+  const queryKey = ["organization", id];
 
   const queryFn = async () => {
-    return getCountryById(client, countryId).then(result => result.data);
+    return getCountryById(client, id).then(result => result.data);
   };
 
-  return useQuery({ queryKey, queryFn });
+  return { queryKey, queryFn };
 }
 
 export default useCountryQuery;
