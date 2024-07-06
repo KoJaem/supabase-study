@@ -2,4 +2,3 @@
 - NextJS 14 (app router)
 - tanstack query (react query)
 - supabase
-- zustand
